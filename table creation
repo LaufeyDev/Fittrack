@@ -1,0 +1,27 @@
+import mysql.connector
+
+db_connection = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="1234"
+)
+
+# Create a new database
+db_cursor = db_connection.cursor()
+db_cursor.execute("CREATE DATABASE IF NOT EXISTS gym_database")
+db_cursor.execute("USE gym_database")
+
+# Create the Members table
+db_cursor.execute("""
+    CREATE TABLE IF NOT EXISTS Members (
+        member_id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        height DECIMAL(5, 2),
+        weight DECIMAL(5, 2),
+        level VARCHAR(50)
+    )
+""")
+
+# Close the database connection
+db_cursor.close()
+db_connection.close()
