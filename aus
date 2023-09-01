@@ -1,0 +1,21 @@
+# Define workout plans for each day
+workout_plans = {
+    "Monday": ["Push-ups", "Bench Press", "Dumbbell Flyes", "Tricep Dips"],
+    "Tuesday": ["Pull-ups", "Bent-over Rows", "Lat Pulldowns", "Bicep Curls"],
+    "Wednesday": ["Squats", "Leg Press", "Lunges", "Calf Raises"],
+    "Thursday": ["Rest day"],
+    "Friday": ["Deadlifts", "Barbell Rows", "Hammer Curls", "Planks"],
+    "Saturday": ["Cardio", "Jumping Jacks", "Burpees", "Running"],
+    "Sunday": ["Rest day"],
+}
+
+# Get user input for the specific day
+day = input("Enter a day of the week (e.g., Monday, Tuesday, etc.): ")
+
+# Check if the entered day is in the workout plans dictionary
+if day in workout_plans:
+    print(f"Workout plan for {day}:")
+    for exercise in workout_plans[day]:
+        print(f"- {exercise}")
+else:
+    print("Invalid input. Please enter a valid day of the week.")
