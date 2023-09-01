@@ -13,6 +13,8 @@ cursor = db.cursor()
 # Create a table to store user information
 cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255))")
 
+log=0
+
 def register():
     username = input("Enter a username: ")
     password = input("Enter a password: ")
@@ -34,7 +36,13 @@ def login():
     # Check if the username and password match a record in the database
     cursor.execute("SELECT * FROM users WHERE username = %s AND password = %s", (username, password))
     if cursor.fetchone():
+        
         print("Login successful!")
+        mid=int(input("enter member id : "))
+        name=input("enter name : ")
+        ht=int(input("enter height in cm : "))
+        wt=int(input("enter weight in kg : "))
+        lvl=input("enter level beginner, intermediate, pro")
     else:
         print("Incorrect username or password. Please try again.")
 
@@ -49,6 +57,7 @@ if __name__ == "__main__":
             register()
         elif choice == "2":
             login()
+            break
         elif choice == "3":
             break
         else:
@@ -56,3 +65,45 @@ if __name__ == "__main__":
 
     # Close the database connection
     db.close()
+
+
+import mysql.connector
+
+db_connection = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="1234"
+)
+
+# Create a new database
+db_cursor = db_connection.cursor()
+db_cursor.execute("CREATE DATABASE IF NOT EXISTS gym_database")
+db_cursor.execute("USE gym_database")
+
+# Create the Members table
+db_cursor.execute("""
+    CREATE TABLE IF NOT EXISTS Members (
+        member_id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        height DECIMAL(5, 2),
+        weight DECIMAL(5, 2),
+        level VARCHAR(50),
+        password VARCHAR(50)
+    )
+""")
+
+# Close the database connection
+db_cursor.close()
+db_connection.close()
+
+
+#inside login
+"""if log==1:
+    mid=int(input("enter member id : "))
+    name=input("enter name : ")
+    ht=int(input("enter height in cm : "))
+    wt=int(input("enter weight in kg : "))
+    lvl=input("enter level beginner, intermediate, pro")
+    
+    """
+
