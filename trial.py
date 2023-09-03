@@ -47,7 +47,7 @@ def login():
         print("Login successful!")
 
         # Add member information
-        mid = int(input("Enter member id: "))
+        mid = int(input("Enter member id: ")) 
         name = input("Enter name: ")
         ht = int(input("Enter height in cm: "))
         wt = int(input("Enter weight in kg: "))
@@ -62,6 +62,8 @@ def login():
 
             print("1. Show workout")
             print("2. Enter day")
+            print("3. Update info")
+            print("4. ")
             ch2 = int(input("Select option: "))
             if ch2 == 1:
                 print("""
@@ -80,27 +82,59 @@ def login():
 """)
             elif ch2 == 2:
                 d = input("Enter day: ")
+                #monday chest day workouts (b,i,p)
                 if d == 'Mon' or d == 'mon' or d=='Monday' or d == 'monday':
                     print("Chest day")  
-                    print("Wokrouts kanikum")
+                    if lvl == 'beginner' or lvl=='Beginner':
+                        print("Wokrouts kanikum(b)")
+                    elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                        print("Wokrout(I)")
+                    elif lvl =='Pro' or lvl=='pro':
+                        print("Workout(P)")
+                #Tuesday workout (b,i,p)        
                 elif d == 'Tue' or d == 'tue' or d=='tuesday' or d == 'Tuesday':
                     print("Tricep & Abs")  
-                    print("Wokrouts kanikum")
+                    if lvl == 'beginner' or lvl=='Beginner':
+                        print("Wokrouts kanikum(b)")
+                    elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                        print("Wokrout(I)")
+                    elif lvl =='Pro' or lvl=='pro':
+                        print("Workout(P)")
+                #wednesday workout (b,i,p)    
                 elif d == 'Wed' or d == 'wed' or d=='Wednesday' or d == 'wednesday':
                     print("Bicep & shoulder")  
-                    print("Wokrouts kanikum")
+                    if lvl == 'beginner' or lvl=='Beginner':
+                        print("Wokrouts kanikum(b)")
+                    elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                        print("Wokrout(I)")
+                    elif lvl =='Pro' or lvl=='pro':
+                        print("Workout(P)")
+                #thursday workout (b,i,p)        
                 elif d == 'Thu' or d == 'thu' or d=='Thursday' or d == 'thursday':
                     print("Leg day")  
-                    print("Wokrouts kanikum")
+                    if lvl == 'beginner' or lvl=='Beginner':
+                        print("Wokrouts kanikum(b)")
+                    elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                        print("Wokrout(I)")
+                    elif lvl =='Pro' or lvl=='pro':
+                        print("Workout(P)")
+                #friday workout (b,i,p)        
                 elif d == 'Fri' or d == 'fri' or d=='Friday' or d == 'friday':
                     print("Back day")  
-                    print("Wokrouts kanikum")
+                    if lvl == 'beginner' or lvl=='Beginner':
+                        print("Wokrouts kanikum(b)")
+                    elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                        print("Wokrout(I)")
+                    elif lvl =='Pro' or lvl=='pro':
+                        print("Workout(P)")
+                #rest day        
                 elif d == 'sat' or d == 'Sat' or d=='saturday' or d == 'Saturday':
                     print("Rest day")  
-                    print("Wokrouts kanikum")
+                    print("“If you get tired, learn to rest, not to quit.”")
+                #rest day       
                 elif d == 'Sun' or d == 'sun' or d=='sunday' or d == 'Sunday':
                     print("Rest day")  
-                    print("Wokrouts kanikum")    
+                    print("“Relax and recharge.")    
                 else:
                     print("please enter day(Mon,Tue,Wed...)")                
 
@@ -131,5 +165,6 @@ if __name__ == "__main__":
 
 # Close the database connection
 db.close()
+
 
 
