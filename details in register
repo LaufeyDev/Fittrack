@@ -41,11 +41,11 @@ def register():
     name = input("Enter name: ")
     ht = int(input("Enter height in cm: "))
     wt = int(input("Enter weight in kg: "))
-    lvl = input("Enter level (beginner, intermediate, pro): ")
+#    lvl = input("Enter level (beginner, intermediate, pro): ")
 
     # Insert member data into the Members table
-    cursor.execute("INSERT INTO Members (member_id, name, height, weight, level) VALUES (%s, %s, %s, %s, %s)",
-                    (mid, name, ht, wt, lvl))
+    cursor.execute("INSERT INTO Members (member_id, name, height, weight) VALUES (%s, %s, %s, %s, %s)",
+                    (mid, name, ht, wt,))
     db.commit()
 
 
@@ -84,6 +84,7 @@ def login():
 """)
             elif ch2 == 2:
                 d = input("Enter day: ")
+                lvl= input("Enter level (beginner, intermediate, pro): ")
                 #monday chest day workouts (b,i,p)
                 if d == 'Mon' or d == 'mon' or d=='Monday' or d == 'monday':
                     print("Chest day")  
