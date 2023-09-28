@@ -5,7 +5,7 @@ import random
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="sebs",
+    password="1234",
     database="gym_database"
 )
 
@@ -19,9 +19,6 @@ cursor.execute("""
     )
 """)
 cursor.execute("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255), password VARCHAR(255))")
-
-#creating admin column
-cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", ("ADMIN", "999"))
 
 
 # register
@@ -107,9 +104,11 @@ def login():
                     lvl= input("Enter level (beginner, intermediate, pro): ")
                 #monday chest day workouts (b,i,p)
                     if d == 'Mon' or d == 'mon' or d=='Monday' or d == 'monday':
-                        print("Chest day")  
-                    if lvl == 'beginner' or lvl=='Beginner':
-                        print("""+------------------------+
+                        print("Chest day")
+                        print("'I dont stop when I'm tired, I stop when I'm DONE'   -David Goggins")
+                        if lvl == 'beginner' or lvl=='Beginner':
+                            print("""
+                                 +------------------------+
                                  │       Level- I         │
                                  +------------------------+
                                  │  Push up 3*12          │
@@ -117,20 +116,18 @@ def login():
                                  │  incline pushup 3*12   │
                                  │  diamond push up 3*12  │
                                  +------------------------+  """)
-                    elif lvl == 'intermediate' or lvl == 'Intermediate':   
-                        print("""+------------------------+
+                        elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                            print("""
+                                 +------------------------+
                                  │       Level- II        │
                                  +------------------------+
                                  │  Push up 3*20          │
                                  │  db bench press 3*15   │
                                  │  db chest fly 3*15     │
                                  │  inclined db fly 3*12  │
-                                 +------------------------+ 
-                                      
-
-                                     """)
-                    elif lvl =='Pro' or lvl=='pro':
-                        print("""
+                                 +------------------------+ """)
+                        elif lvl =='Pro' or lvl=='pro':
+                            print("""
                                 +------------------------+
                                 │       Level- III       │
                                 +------------------------+
@@ -142,9 +139,11 @@ def login():
                                 +------------------------+ """)
                 #Tuesday workout (b,i,p)        
                     elif d == 'Tue' or d == 'tue' or d=='tuesday' or d == 'Tuesday':
-                        print("Tricep & Abs")  
-                    if lvl == 'beginner' or lvl=='Beginner':
-                        print("""
+                        print("Tricep & Abs")
+                        print("Suffering is the true test of life")
+                        print("The temporary satisfaction of quitting is outweighed by the eternal suffering of being nobody")
+                        if lvl == 'beginner' or lvl=='Beginner':
+                            print("""
                                 +------------------------+
                                 │       Level- I         │
                                 +------------------------+
@@ -154,8 +153,8 @@ def login():
                                 │  plank 45s             │
                                 │  mountain climber 30s  │
                                 +------------------------+  """)
-                    elif lvl == 'intermediate' or lvl == 'Intermediate':   
-                        print(""" 
+                        elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                            print(""" 
                                 +------------------------+
                                 │       Level- II         │
                                 +------------------------+
@@ -166,8 +165,8 @@ def login():
                                 │  V-sits 3*20s          │
                                 │  Plank 1min            │
                                 +------------------------+ """)
-                    elif lvl =='Pro' or lvl=='pro':
-                        print("""
+                        elif lvl =='Pro' or lvl=='pro':
+                            print("""
                                +------------------------+
                                │       Level- III       │
                                +------------------------+
@@ -182,9 +181,10 @@ def login():
                                +------------------------+""")
                 #wednesday workout (b,i,p)    
                     elif d == 'Wed' or d == 'wed' or d=='Wednesday' or d == 'wednesday':
-                        print("Bicep & shoulder")  
-                    if lvl == 'beginner' or lvl=='Beginner':
-                        print("""
+                        print("Bicep & shoulder")
+                        print("Dont wait for the perfect moment. Take the moment and make it perfect")
+                        if lvl == 'beginner' or lvl=='Beginner':
+                            print("""
                                +------------------------+
                                │       Level- I          │
                                +------------------------+
@@ -197,28 +197,30 @@ def login():
                                │  Russian twist 100     │
                                │  V-sits 3*40           │
                                +------------------------+ """)
-                    elif lvl == 'intermediate' or lvl == 'Intermediate':   
-                        print("Wokrout(I)")
-                    elif lvl =='Pro' or lvl=='pro':
-                        print("Workout(P)")
+                        elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                            print("Wokrout(I)")
+                        elif lvl =='Pro' or lvl=='pro':
+                            print("Workout(P)")
                 #thursday workout (b,i,p)        
                     elif d == 'Thu' or d == 'thu' or d=='Thursday' or d == 'thursday':
-                        print("Leg day")  
-                    if lvl == 'beginner' or lvl=='Beginner':
-                        print("Wokrouts kanikum(b)")
-                    elif lvl == 'intermediate' or lvl == 'Intermediate':   
-                        print("Wokrout(I)")
-                    elif lvl =='Pro' or lvl=='pro':
-                        print("Workout(P)")
+                        print("Leg day")
+                        print("You might feel like quitting, but quitting is for losers")
+                        print("The pain you feel today will be the strength you need tommorow")
+                        if lvl == 'beginner' or lvl=='Beginner':
+                            print("Wokrouts kanikum(b)")
+                        elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                            print("Wokrout(I)")
+                        elif lvl =='Pro' or lvl=='pro':
+                            print("Workout(P)")
                 #friday workout (b,i,p)        
                     elif d == 'Fri' or d == 'fri' or d=='Friday' or d == 'friday':
                         print("Back day")  
-                    if lvl == 'beginner' or lvl=='Beginner':
-                        print("Wokrouts kanikum(b)")
-                    elif lvl == 'intermediate' or lvl == 'Intermediate':   
-                        print("Wokrout(I)")
-                    elif lvl =='Pro' or lvl=='pro':
-                        print("Workout(P)")
+                        if lvl == 'beginner' or lvl=='Beginner':
+                            print("Wokrouts kanikum(b)")
+                        elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                            print("Wokrout(I)")
+                        elif lvl =='Pro' or lvl=='pro':
+                            print("Workout(P)")
                 #rest day        
                     elif d == 'sat' or d == 'Sat' or d=='saturday' or d == 'Saturday':
                         print("Rest day")  
@@ -226,7 +228,7 @@ def login():
                 #rest day       
                     elif d == 'Sun' or d == 'sun' or d=='sunday' or d == 'Sunday':
                         print("Rest day")  
-                        print("“Relax and recharge.")    
+                        print("Relax and recharge.")    
                     else:
                         print("please enter day(Mon,Tue,Wed...)")
 
@@ -262,40 +264,45 @@ def login():
             print("Incorrect username or password. Please try again.")
             login()
     elif mode == 'admin':
-        
         admin_username = input("Enter username: ")
         passwd = input("Enter password: ")
         if admin_username == 'admin' and passwd == 'admin123':
+            print("Welcome to admin")
             while True:
             
-                print("1. fn 1")
-                print("2. fn 2")
-                print("3. fn 3")
+                print("1. View table members")
+                print("2. View table users")
+                print("3. Delete a member")
                 print("4. Exit ")
                 ch3 = int(input("Select option: "))
                 if ch3 == 1:
                     cursor.execute("select * from members")
                     a=cursor.fetchall()
                     for i in a:
-                        print(i[0],i[1],i[2],i[3],i[4])
+                        print(i)
                 elif ch3 == 2:
-                    print("fn 2")
+                    cursor.execute("select * from users")
+                    a=cursor.fetchall()
+                    for i in a:
+                        print(i)
                 elif ch3 == 3:
-                    print("fn 3")
-                else:
+                    print("deleting using member id, check member id from table 'members'")
+                    k=int(input("enter member id : "))
+                    cursor.execute("DELETE FROM members WHERE member_id='{}'".format(k))
+                    db.commit()
+                    cursor.execute("select * from members")
+                    a=cursor.fetchall()
+                    for i in a:
+                        print(i[0],i[1],i[2])
+
+                elif ch3 == 4:
                     break
+                
 
+                
         else:
-            print("invalid password or username")
+            print("invalid password or username")    
             login()
-
-    
-
-
-
-
-    
-        
 
 # ...
 if __name__ == "__main__":
