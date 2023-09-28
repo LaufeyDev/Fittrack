@@ -109,25 +109,94 @@ def login():
                     if d == 'Mon' or d == 'mon' or d=='Monday' or d == 'monday':
                         print("Chest day")  
                     if lvl == 'beginner' or lvl=='Beginner':
-                        print("Wokrouts kanikum(b)")
+                        print("""+------------------------+
+                                 │       Level- I         │
+                                 +------------------------+
+                                 │  Push up 3*12          │
+                                 │  decline push up 3*12  │
+                                 │  incline pushup 3*12   │
+                                 │  diamond push up 3*12  │
+                                 +------------------------+  """)
                     elif lvl == 'intermediate' or lvl == 'Intermediate':   
-                        print("Wokrout(I)")
+                        print("""+------------------------+
+                                 │       Level- II        │
+                                 +------------------------+
+                                 │  Push up 3*20          │
+                                 │  db bench press 3*15   │
+                                 │  db chest fly 3*15     │
+                                 │  inclined db fly 3*12  │
+                                 +------------------------+ 
+                                      
+
+                                     """)
                     elif lvl =='Pro' or lvl=='pro':
-                        print("Workout(P)")
+                        print("""
+                                +------------------------+
+                                │       Level- III       │
+                                +------------------------+
+                                │  Push up 3*30          │
+                                │  bench press 3*15      │
+                                │  db flyer 3*15         │
+                                │  machine fly 3*15      │
+                                │ Cable chest press 3*15 │
+                                +------------------------+ """)
                 #Tuesday workout (b,i,p)        
                     elif d == 'Tue' or d == 'tue' or d=='tuesday' or d == 'Tuesday':
                         print("Tricep & Abs")  
                     if lvl == 'beginner' or lvl=='Beginner':
-                        print("Wokrouts kanikum(b)")
+                        print("""
+                                +------------------------+
+                                │       Level- I         │
+                                +------------------------+
+                                │  diamond Push up 3*12  │
+                                │  bench dips 3*15       │
+                                │  floor dips 3*15       │
+                                │  plank 45s             │
+                                │  mountain climber 30s  │
+                                +------------------------+  """)
                     elif lvl == 'intermediate' or lvl == 'Intermediate':   
-                        print("Wokrout(I)")
+                        print(""" 
+                                +------------------------+
+                                │       Level- II         │
+                                +------------------------+
+                                │  diamond Push up 3*12  │
+                                │  overhead db ext 3*15  │
+                                │  tricep kickbacks 3*15 │
+                                │  russian twists 60*3   │
+                                │  V-sits 3*20s          │
+                                │  Plank 1min            │
+                                +------------------------+ """)
                     elif lvl =='Pro' or lvl=='pro':
-                        print("Workout(P)")
+                        print("""
+                               +------------------------+
+                               │       Level- III       │
+                               +------------------------+
+                               │  diamond Push up 3*30  │
+                               │  cable extension 3*15  │
+                               │  tricep extension 3*15 │
+                               │  cable push down  3*15 │
+                               │  floor tricep ext 3*15 │
+                               │  Plank 2min            │
+                               │  Russian twist 100     │
+                               │  V-sits 3*40           │
+                               +------------------------+""")
                 #wednesday workout (b,i,p)    
                     elif d == 'Wed' or d == 'wed' or d=='Wednesday' or d == 'wednesday':
                         print("Bicep & shoulder")  
                     if lvl == 'beginner' or lvl=='Beginner':
-                        print("Wokrouts kanikum(b)")
+                        print("""
+                               +------------------------+
+                               │       Level- I          │
+                               +------------------------+
+                               │  Bicep curl  3*12      │
+                               │  hammer curl 3*12      │
+                               │  conc. curl  3*12      │
+                               │  sde lateral raise 3*12│
+                               │  front raise 3*12      │
+                               │  seated db press 3*12  │
+                               │  Russian twist 100     │
+                               │  V-sits 3*40           │
+                               +------------------------+ """)
                     elif lvl == 'intermediate' or lvl == 'Intermediate':   
                         print("Wokrout(I)")
                     elif lvl =='Pro' or lvl=='pro':
@@ -193,38 +262,40 @@ def login():
             print("Incorrect username or password. Please try again.")
             login()
     elif mode == 'admin':
-        password = input("Enter your password: ")
-
-    # Check if the username and password match a record in the database
-        cursor.execute("SELECT * FROM users WHERE username = %s and password = %s", ("ADMIN", password))
-        if cursor.fetchone():
-            print("Welcome admin")
-
-        while True:
+        
+        admin_username = input("Enter username: ")
+        passwd = input("Enter password: ")
+        if admin_username == 'admin' and passwd == 'admin123':
+            while True:
             
-            print("1. Display")
-            print("2. fn 2")
-            print("3. fn 3")
-            print("4. Exit ")
-            ch3 = int(input("Select option: "))
-            if ch3 == 1:
-                '''cursor.execute("select * from club")
-                a=cursor.fetchall()
-                for i in a:
-                    print(i)'''
-            elif ch3 == 2:
-                print("fn 2")
-            elif ch3 == 3:
-                print("fn 3")
-            else:
-                break
-                
+                print("1. fn 1")
+                print("2. fn 2")
+                print("3. fn 3")
+                print("4. Exit ")
+                ch3 = int(input("Select option: "))
+                if ch3 == 1:
+                    cursor.execute("select * from members")
+                    a=cursor.fetchall()
+                    for i in a:
+                        print(i[0],i[1],i[2],i[3],i[4])
+                elif ch3 == 2:
+                    print("fn 2")
+                elif ch3 == 3:
+                    print("fn 3")
+                else:
+                    break
+
+        else:
+            print("invalid password or username")
+            login()
+
+    
 
 
 
 
     
-        login()
+        
 
 # ...
 if __name__ == "__main__":
