@@ -5,7 +5,7 @@ import random
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="1234",
+    password="sebs",
     database="gym_database"
 )
 
@@ -187,7 +187,11 @@ def login():
                     print(a)
                 elif ch2 == 5:
                     print("STAY HARD SON!! KEEP GOING")
+        
                     break
+        else:
+            print("Incorrect username or password. Please try again.")
+            login()
     elif mode == 'admin':
         password = input("Enter your password: ")
 
@@ -198,13 +202,16 @@ def login():
 
         while True:
             
-            print("1. fn 1")
+            print("1. Display")
             print("2. fn 2")
             print("3. fn 3")
             print("4. Exit ")
             ch3 = int(input("Select option: "))
             if ch3 == 1:
-                print("fn 1")
+                '''cursor.execute("select * from club")
+                a=cursor.fetchall()
+                for i in a:
+                    print(i)'''
             elif ch3 == 2:
                 print("fn 2")
             elif ch3 == 3:
@@ -216,8 +223,7 @@ def login():
 
 
 
-    else:
-        print("Incorrect username or password. Please try again.")
+    
         login()
 
 # ...
