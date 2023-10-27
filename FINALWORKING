@@ -1,0 +1,418 @@
+import mysql.connector
+import random
+
+# Connect to MySQL database
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="1234",
+    database="gym_database"
+)
+
+cursor = db.cursor()
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS Members (
+        member_id INT(10) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        height DECIMAL(5, 2),
+        weight DECIMAL(5, 2)
+    )
+""")
+cursor.execute("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255), password VARCHAR(255), member_id INT(10) NOT NULL)")
+
+
+# register
+def register():
+    username = input("Enter a username: ")
+    password = input("Enter a password: ")
+
+    # Add member ID
+    mid=random.randint(1000,9999)
+
+    # Check if the generated member ID already exists in the database
+    cursor.execute("SELECT * FROM members WHERE member_id = %s", (mid,))
+    existing_member = cursor.fetchone()
+
+    if existing_member:
+        # If the generated ID already exists, generate a new one recursively
+        mid=random.randint(1000,9999)
+
+
+
+    # Check if the username already exists in the database
+    cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+    if cursor.fetchone():
+        print("Username already exists. Please choose a different one.")
+    else:
+        # Insert the new user into the database
+        cursor.execute("INSERT INTO users (username, password, member_id) VALUES (%s, %s, %s)", (username, password, mid))
+        db.commit()
+        print("Registration successful!")
+
+        
+        
+        name = input("Enter name: ")
+        ht = int(input("Enter height in cm: "))
+        wt = int(input("Enter weight in kg: "))
+#    lvl = input("Enter level (beginner, intermediate, pro): ")
+
+        # Insert member data into the Members table
+        cursor.execute("INSERT INTO Members (member_id, name, height, weight) VALUES (%s, %s, %s, %s)",
+                        (mid, name, ht, wt,))
+        db.commit()
+
+
+def login():
+    mode = input("login as admin or member: ")
+    if mode=='member':
+
+        username = input("Enter your username: ")
+        password = input("Enter your password: ")
+
+    # Check if the username and password match a record in the database
+        cursor.execute("SELECT * FROM users WHERE username = %s and password = %s", (username, password))
+        if cursor.fetchone():
+            print("Login successful!")
+            
+
+
+
+            while True:
+            
+
+                print("1. Show workout")
+                print("2. Enter day")
+                print("3. View details")
+                print("4. Update info")
+                print("5. Exit ")
+                ch2 = int(input("Select option: "))
+                if ch2 == 1:
+                    print("""
+                        +------------------------+
+                        │      Workout Plan      │
+                        +------------------------+
+                        │  Mon: Chest day        │
+                        │  Tue: Tricep & Abs     │
+                        │  Wed: Bicep & Shoulder │
+                        │  Thu: Leg day          │
+                        │  Fri: Back day         │ 
+                        │  Sat: Rest             │
+                        │  Sun: Rest             │
+                        +------------------------+
+
+""")
+                elif ch2 == 2:
+                    d = input("Enter day: ")
+                    lvl= input("Enter level (beginner, intermediate, pro): ")
+                #monday chest day workouts (b,i,p)
+                    if d == 'Mon' or d == 'mon' or d=='Monday' or d == 'monday':
+                        print("Chest day")
+                        print("'I dont stop when I'm tired, I stop when I'm DONE'   -David Goggins")
+                        if lvl == 'beginner' or lvl=='Beginner':
+                            print("""
+                                 +------------------------+
+                                 │       Level- I         │
+                                 +------------------------+
+                                 │  Push up 3*12          │
+                                 │  decline push up 3*12  │
+                                 │  incline pushup 3*12   │
+                                 │  diamond push up 3*12  │
+                                 +------------------------+  """)
+                        elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                            print("""
+                                 +------------------------+
+                                 │       Level- II        │
+                                 +------------------------+
+                                 │  Push up 3*20          │
+                                 │  db bench press 3*15   │
+                                 │  db chest fly 3*15     │
+                                 │  inclined db fly 3*12  │
+                                 +------------------------+ """)
+                        elif lvl =='Pro' or lvl=='pro':
+                            print("""
+                                +------------------------+
+                                │       Level- III       │
+                                +------------------------+
+                                │  Push up 3*30          │
+                                │  bench press 3*15      │
+                                │  db flyer 3*15         │
+                                │  machine fly 3*15      │
+                                │ Cable chest press 3*15 │
+                                +------------------------+ """)
+                #Tuesday workout (b,i,p)        
+                    elif d == 'Tue' or d == 'tue' or d=='tuesday' or d == 'Tuesday':
+                        print("Tricep & Abs")
+                        print("Suffering is the true test of life")
+                        print("The temporary satisfaction of quitting is outweighed by the eternal suffering of being nobody")
+                        if lvl == 'beginner' or lvl=='Beginner':
+                            print("""
+                                +------------------------+
+                                │       Level- I         │
+                                +------------------------+
+                                │  diamond Push up 3*12  │
+                                │  bench dips 3*15       │
+                                │  floor dips 3*15       │
+                                │  plank 45s             │
+                                │  mountain climber 30s  │
+                                +------------------------+  """)
+                        elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                            print(""" 
+                                +------------------------+
+                                │       Level- II        │
+                                +------------------------+
+                                │  diamond Push up 3*12  │
+                                │  overhead db ext 3*15  │
+                                │  tricep kickbacks 3*15 │
+                                │  russian twists 60*3   │
+                                │  V-sits 3*20s          │
+                                │  Plank 1min            │
+                                +------------------------+ """)
+                        elif lvl =='Pro' or lvl=='pro':
+                            print("""
+                               +------------------------+
+                               │       Level- III       │
+                               +------------------------+
+                               │  diamond Push up 3*30  │
+                               │  cable extension 3*15  │
+                               │  tricep extension 3*15 │
+                               │  cable push down  3*15 │
+                               │  floor tricep ext 3*15 │
+                               │  Plank 2min            │
+                               │  Russian twist 100     │
+                               │  V-sits 3*40           │
+                               +------------------------+""")
+                #wednesday workout (b,i,p)    
+                    elif d == 'Wed' or d == 'wed' or d=='Wednesday' or d == 'wednesday':
+                        print("Bicep & shoulder")
+                        print("Dont wait for the perfect moment. Take the moment and make it perfect")
+                        if lvl == 'beginner' or lvl=='Beginner':
+                            print("""
+                               +------------------------+
+                               │       Level- I         │
+                               +------------------------+
+                               │  Bicep curl  3*12      │
+                               │  hammer curl 3*12      │
+                               │  conc. curl  3*12      │
+                               │  sde lateral raise 3*12│
+                               │  front raise 3*12      │
+                               │  seated db press 3*12  │
+                               │  Russian twist 100     │
+                               │  V-sits 3*40           │
+                               +------------------------+ """)
+                        elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                            print("""
+                                +------------------------+
+                                │       Level- II        │
+                                +------------------------+
+                                │  barbel curl 3*15      │
+                                │  hammer curl 3*15      │
+                                │  conc. curls 3*15      │
+                                │  arnold press 3*15     │
+                                │  seated db 3*15        │
+                                │  lateral raise 3*15    │
+                                +------------------------+""")
+                        elif lvl =='Pro' or lvl=='pro':
+                            print("""
+                               +------------------------+
+                               │       Level- III       │
+                               +------------------------+
+                               │  barbel curl 3*15      │
+                               │  hammer curl 3*15      │
+                               │  chin up 3*10          │
+                               │  conc. curls  3*15     │
+                               │  arnold press 3*15     │
+                               │  seated db  3*15       │
+                               │  face pull 3*15        │
+                               +------------------------+""")
+                #thursday workout (b,i,p)        
+                    elif d == 'Thu' or d == 'thu' or d=='Thursday' or d == 'thursday':
+                        print("Leg day")
+                        print("You might feel like quitting, but quitting is for losers")
+                        print("The pain you feel today will be the strength you need tommorow")
+                        if lvl == 'beginner' or lvl=='Beginner':
+                            print("""
+                               +------------------------+
+                               │       Level- I         │
+                               +------------------------+
+                               │  Squats  3*15          │
+                               │  lunges 3*15           │
+                               │  skipping 3*1min       │
+                               │      or                │
+                               │  jumping jacks 3*1min  │
+                               │  Calf raise 3*15       │
+                               +------------------------+ """)
+                        elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                            print("""
+                                +------------------------+
+                                │       Level- II        │
+                                +------------------------+
+                                │  Squats 3*25           │
+                                │  weighted Lunges 3*15  │
+                                │  Skipping/J.J 3*2min   │
+                                │  calf raise 3*30       │
+                                +------------------------+""")
+                        elif lvl =='Pro' or lvl=='pro':
+                            print("""
+                               +------------------------+
+                               │       Level- III       │
+                               +------------------------+
+                               │  barbel squats 3*15    │
+                               │  leg press 3*15        │
+                               │  leg curl 3*15         │
+                               │  leg extension  3*15   │
+                               │  calf raise 3*40       │
+                               +------------------------+""")
+                #friday workout (b,i,p)        
+                    elif d == 'Fri' or d == 'fri' or d=='Friday' or d == 'friday':
+                        print("Back day")  
+                        if lvl == 'beginner' or lvl=='Beginner':
+                            print("""
+                               +------------------------+
+                               │       Level- I         │
+                               +------------------------+
+                               │  Pull ups  3*5         │
+                               │  bird dog ex. 3*12     │
+                               │  superman 3*12         │
+                               │  inverted row 3*12     │
+                               +------------------------+""")
+                        elif lvl == 'intermediate' or lvl == 'Intermediate':   
+                            print("""
+                                +------------------------+
+                                │       Level- II        │
+                                +------------------------+
+                                │  pull up 3*8           │
+                                │  one arm db row 3*15   │
+                                │  seated cble row 3*15  │
+                                │  pull down 3*15        │
+                                +------------------------+""")
+                        elif lvl =='Pro' or lvl=='pro':
+                            print("""
+                               +------------------------+
+                               │       Level- III       │
+                               +------------------------+
+                               │  pull up 3*15          │
+                               │  bent over curls 3*15  │
+                               │  seated cble rows 3*10 │
+                               │  pull down  3*15       │
+                               │  T bar row  3*15       │
+                               +------------------------+""")
+                #rest day        
+                    elif d == 'sat' or d == 'Sat' or d=='saturday' or d == 'Saturday':
+                        print("Rest day")  
+                        print("“If you get tired, learn to rest, not to quit.”")
+                #rest day       
+                    elif d == 'Sun' or d == 'sun' or d=='sunday' or d == 'Sunday':
+                        print("Rest day")  
+                        print("Relax and recharge.")    
+                    else:
+                        print("please enter day(Mon,Tue,Wed...)")
+
+                elif ch2 == 3:
+                    user=input("enter username of whose details to be viewed : ")
+                    cursor.execute("select * from members m, users u where m.member_id=u.member_id having u.username='{}'".format(user))
+                    a=cursor.fetchall()
+                    print("member id : ",a[0][0])
+                    print("name : ",a[0][1])
+                    print("height : ",a[0][2])
+                    print("weight : ",a[0][3])
+                    
+                elif ch2 == 4:
+                    print("You can check you member id in 'view details'")
+                    mid=int(input('Enter the member id of whose details you want to change :'))
+                    o=input("enter the option you want to update (height,weight) :")
+                    if o=="height":
+                        new=int(input("enter new height :"))
+                    elif o=="weight":
+                        new=int(input("enter new weight :"))
+                    else:
+                        print("invalid choice, please enter given choices")
+#                  new=input("enter new detail :")
+                    cursor.execute("update members set {}={} where member_id='{}'".format(o,new,mid))
+                    db.commit()
+                    cursor.execute("select * from members where member_id='{}'".format(mid))
+                    a=cursor.fetchall()
+                    print("member id : ",a[0][0])
+                    print("name : ",a[0][1])
+                    print("height : ",a[0][2])
+                    print("weight : ",a[0][3])
+                elif ch2 == 5:
+                    print("STAY HARD SON!! KEEP GOING")
+        
+                    break
+        else:
+            print("Incorrect username or password. Please try again.")
+            login()
+    elif mode == 'admin':
+        admin_username = input("Enter username: ")
+        passwd = input("Enter password: ")
+        if admin_username == 'admin' and passwd == 'admin123':
+            print("Welcome to admin")
+            while True:
+            
+                print("1. View table members")
+                print("2. View table users")
+                print("3. Delete a member")
+                print("4. Exit ")
+                ch3 = int(input("Select option: "))
+                if ch3 == 1:
+                    cursor.execute("select * from members")
+                    a=cursor.fetchall()
+                    for i in a:
+                        print(i)
+                elif ch3 == 2:
+                    cursor.execute("select * from users")
+                    a=cursor.fetchall()
+                    for i in a:
+                        print(i)
+                elif ch3 == 3:
+                    print("deleting using member id, check member id from table 'members'")
+                    k=int(input("enter member id : "))
+                    cursor.execute("DELETE FROM members WHERE member_id='{}'".format(k))
+                    db.commit()
+                    cursor.execute("select * from members")
+                    a=cursor.fetchall()
+                    for i in a:
+                        print(i[0],i[1],i[2])
+
+                elif ch3 == 4:
+                    break
+                
+
+                
+        else:
+            print("invalid password or username")    
+            login()
+
+# ...
+if __name__ == "__main__":
+    while True:
+        # Define the heading text
+        heading = "FITTRACK"
+
+        # Define formatting for the heading
+        underline = "=" * len(heading)
+        space_padding = " " * (len(heading) // 2)
+
+        # Print the heading
+        print(space_padding + heading)
+        print(space_padding + underline)
+        
+        print("1. Register")
+        print("2. Login")
+        print("3. Exit")
+        choice = input("Choose an option (1/2/3): ")
+
+        if choice == "1":
+            register()
+        elif choice == "2":
+            login()
+            break
+        elif choice == "3":
+            print("STAY HARD SON!! KEEP GOING")
+            break
+        else:
+            print("Invalid choice. Please select 1, 2, or 3.")
+
+
+# Close the database connection
+db.close()
